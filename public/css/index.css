@@ -1,0 +1,178 @@
+.main-contain{
+    min-height: calc(100% - 54px - 102px);
+}
+/* slogan */
+.slogan{
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
+    padding-top: 75px;
+    padding-bottom: 75px;
+    overflow: hidden;
+
+}
+
+.slogan>div{
+    position: relative;
+    z-index: 1;
+    width: 1200px;
+    margin: 0px auto;
+    padding: 10px;
+    height: 169px;
+}
+.slogan>div>div{
+    margin-bottom: 25px;
+}
+
+.slogan h3{
+    font-size: 28px;
+    color: #F8F8F8;
+    margin-bottom: 15px;
+}
+.slogan p{
+    color: #F8F8F8;
+}
+
+.slogan form{
+    display: flex;
+}
+
+.slogan input{
+    background: #FFFFFF;
+    padding: 15px;
+    width: 400px;
+    border: 0px;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.slogan button{
+    background: #448899;
+    padding: 8px 15px;
+    border: 0;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.slogan button>i{
+    font-size: 30px;
+    color: #ffffff;
+}
+
+.slogan-img{
+    position: absolute;
+    z-index: 0;
+    width: 650px;
+    left: calc(57% - 58px);
+    bottom: 0;
+    overflow: hidden;
+}
+
+
+/* 景點頁面 */
+main{
+    width: 1200px;
+    margin: 40px auto;
+    padding: 15px;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+main .attraction{
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding-bottom: 12px;
+}
+
+.img-contain{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    /* background: #ffffff00; */
+}
+.img-contain:hover{
+    opacity: 0.7;
+}
+.img-contain::before{
+    opacity: 0;
+    content: "";
+    display: block;
+    padding-top: 60%;
+    width: 100%;
+    position: relative;
+}
+.img-contain>img{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 5px 5px 0 0;
+}
+
+.attraction>.name{
+    display: block;
+    /* min-width: 100%; */
+    max-width: fit-content;
+    text-decoration: none;
+    margin: 7px 10px;
+    font-weight: 700;
+    color: #757575;
+    overflow: hidden;
+    text-overflow : ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.attraction>.name:hover{
+    color: #448899;
+}
+.attraction-info{
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.attraction-info>p{
+    color: #757575;
+}
+
+.loading{
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+}
+.stop-loading{
+    display: none;
+}
+
+
+@media (max-width:1200px){
+    .slogan{
+        padding-top: calc(2.38% + 44.5px);
+        padding-bottom: calc(2.38% + 44.5px);
+    }
+    .slogan>div{
+        width: calc(100% - 20px);
+    }
+    .slogan input{
+        width: calc(20% + 157px);
+    }
+    .slogan-img{
+        width: calc(44.5% + 116px);
+    }
+
+    main{
+        width: calc(100% - 40px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width:600px){
+    main{
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('basic/head') %>
+    <link rel="stylesheet" href="/css/attraction.css">
+    <title>景點資訊</title>
+</head>
+<body>
+    <%- include('basic/nav') %>
+    <main>
+        <div class="booking-info">
+            <div class="slide-show">
+                <div class="img-container">
+                </div>
+                <div class="icon-container">
+                    <div class="img-btn">
+                        <div id="pre-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div id="next-btn"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="img-index">
+                    </div>
+                </div>
+            </div>
+            <div class="profile">
+                <form class="booking-form" action="">
+                    <p><b>訂購導覽行程</b></p>
+                    <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                    <div class="date">
+                        <label for="date">選擇日期：</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="time">
+                        <label>選擇時間：</label>
+
+                        <input type="radio" name="time" id="morning" value="morning" required>
+                        <label for="morning">上半天</label>
+
+                        <input type="radio" name="time" id="afternoon" value="afternoon" required> 
+                        <label for="affternoon">下半天</label>
+                    </div>
+                    <div class="fee">
+                        <label>導覽費用：</label>
+                        <span>新台幣 <span id="price"></span> 元</span>
+                        <!-- <input type="hidden" value="" name='fee'> -->
+                    </div>
+                    <input type="hidden" name="id">
+                    <button type="submit">開始預定行程</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="seperator"></div>
+        
+        <div class="info">
+            <div class="address">
+                <p class="title">景點地址：</p>
+            </div>
+            <div class="transport">
+                <p class="title">交通方式：</p>
+            </div>
+        </div>
+    </main>
+    <%- include('basic/footer') %>
+    <%- include('basic/js') %>
+    <script src="/js/attraction.js"></script>
+</body>
+</html>

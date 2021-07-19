@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('basic/head') %>
+    <link rel="stylesheet" href="/css/booking.css">
+    <title>預定行程</title>
+</head>
+<body>
+    <%- include('basic/nav') %>
+    <main>
+        <h3 class="headline"></h3>
+        <div class="booking-container">
+           
+        </div>
+        <form class="order">
+            <div class="seperator"></div>
+            <div class="info">
+                <h3>您的聯絡資訊</h3>
+                <div>
+                    <label for="name">聯絡姓名：</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">連絡信箱：</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="phone">手機號碼：</label>
+                    <input type="text" id="phone" name="phone" pattern="09[0-9]{8}" required>
+                </div>
+                <p>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
+            </div>
+            <div class="seperator"></div>
+            <div class="info">
+                <h3>信用卡付款資訊</h3>
+                <div class="card-number-group">
+                    <label for="card-number">卡片號碼：</label>
+                    <div class="tpfield" id="card-number"></div>
+                </div>
+                <div class="expiration-date-group">
+                    <label for="card-expiration-date">過期時間：</label>
+                    <div class="tpfield" id="card-expiration-date"></div>
+                </div>
+                <div class="ccv-group">
+                    <label for="card-ccv">驗證號碼：</label>
+                    <div class="tpfield" id="card-ccv"></div>
+                </div>
+            </div>
+            <div class="seperator"></div>
+            <div class="confirm">
+                <p class="error-message"></p>
+                <p>總價：新台幣 <span class="total-price"></span> 元</p>
+                <button type="submit" disabled>確認訂購並付款</button>
+            </div>
+        </form>     
+        <pre class="jumbotron text-left" id="curl">
+        </pre>
+    </main>
+    <%- include('basic/footer') %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.5.1"></script>
+    <%- include('basic/js') %>
+    <script src="/js/booking.js"></script>
+</body>
+</html>

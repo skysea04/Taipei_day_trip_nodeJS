@@ -1,0 +1,192 @@
+h3, h4, p, span, label, i{
+    color: #666666;
+}
+button{
+    background: none;
+    border: none;
+    outline: none;
+}
+/* 分隔線 */
+.seperator{
+    width: 100%;
+    height: 1px;
+    margin: 40px 0;
+    background-color: #e8e8e8;
+}
+
+/* 主頁面 */
+main{
+    min-height: calc(100% - 54px - 102px - 40px);
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.headline{
+    width: 980px;
+    margin: 40px auto 30px auto;
+}
+
+/* 暫定的行程form */
+.booking-container>h4{
+    width: 980px;
+    margin: 0 auto;
+}
+.itinerary{
+    width: 980px;
+    margin: 0 auto 40px auto;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.itinerary>img{
+    display: block;
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.itinerary>.info{
+    position: relative;
+    width: 700px;
+    height: 200px;
+}
+
+.itinerary>.info>h4{
+    margin-bottom: 20px;
+    color: #448899;
+}
+.itinerary>.info>button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.itinerary>.info>div{
+    margin-bottom: 10px;
+}
+.itinerary>.info label{
+    font-weight: bold;
+}
+
+
+/* 實際要輸入的表單內容 */
+.order{
+    display: none;
+}
+.order.show{
+    display: block;
+}
+
+.order>.info{
+    width: 980px;
+    margin: 0 auto;
+}
+
+.order>.info>h3{
+    margin-bottom: 20px;
+}
+
+.order>.info>div{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.order :is(input, .tpfield){
+    width: 200px;
+    padding: 10px;
+    border:1px solid #E8E8E8;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.order p{
+    font-weight: bold;
+}
+
+/* 確認欄位 */
+.confirm{
+    height: 100px;
+    width: 980px;
+    margin: 0 auto 40px;
+}
+
+.confirm *{
+    margin-left: auto;
+}
+
+.confirm p{
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.confirm button{
+    display: block;
+    background: #448899;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.confirm button:disabled{
+    background: rgb(168, 168, 168);
+    cursor: auto;
+}
+
+.error-message{
+    color: rgb(255, 30, 0);
+}
+
+@media (max-width:1200px){
+    main{
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+}
+
+@media (max-width:980px){
+    .headline{
+        width: 100%;
+    }
+    .booking-container>h4{
+        width: 100%;
+    }
+    .itinerary{
+        width: 100%;
+    }
+    .itinerary>.info{
+        width: calc(100% - 280px);
+    }
+    .order, .order :is(.info, .confirm){
+        width: 100%;
+    }
+}
+
+@media (max-width:550px){
+    .itinerary{
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .itinerary>img{
+        width: 100%;
+        height: 70%;
+    }
+    .itinerary>.info{
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .itinerary>.info>button{
+        bottom: 0;
+        top: auto;
+    }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('basic/head') %>
+    <link rel="stylesheet" href="/css/index.css">
+    <title>台北一日遊</title>
+</head>
+<body>
+    <%- include('basic/nav') %>
+    <div class="main-contain">
+        <section class="slogan">
+            <div>
+                <div>
+                    <h3>輕鬆享受台北一日悠閒</h3>
+                    <p>探索每個角落，體驗城市的深度旅遊行程</p>
+                </div>
+                <form>
+                    <input type="text" name="search-attraction" placeholder="輸入景點名稱查詢">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <img class="slogan-img" src="/welcome 1.png" alt="">
+        </section>
+        
+        <main>
+        </main>
+        <img src="/loading.gif" class="loading" alt="">
+    </div>
+    <%- include('basic/footer') %>
+    <%- include('basic/js') %>
+    <script src="/js/index.js"></script>
+</body>
+</html>

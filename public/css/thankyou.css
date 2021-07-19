@@ -1,0 +1,22 @@
+.itinerary>img{
+    height: 170px;
+}
+.itinerary>.info{
+    height: 150px;
+}
+
+form.order{
+    padding-bottom: 40px;
+}
+
+.order-number{
+    width: 980px;
+    font-weight: bold;
+    margin: 0 auto 15px;
+}
+
+@media (max-width: 980px){
+    .order-number {
+        width: 100%;
+    }
+}

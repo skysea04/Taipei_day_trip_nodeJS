@@ -1,0 +1,204 @@
+h3, h4, p, span, label, i{
+    color: #666666;
+    overflow: hidden;
+    text-overflow : ellipsis;
+    white-space: nowrap;
+}
+
+a{
+    text-decoration: none;
+    color: #448899;
+}
+a:hover{
+    color: #5ebdd4;
+
+}
+
+.seperator{
+    width: 100%;
+    height: 1px;
+    margin: 15px 0;
+    background-color: #e8e8e8;
+}
+
+main{
+    min-height: calc(100% - 54px - 102px - 40px);
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.headline{
+    width: 980px;
+    margin: 40px auto 15px;
+}
+
+.orders>h4{
+    width: 980px;
+    margin: 0 auto;
+}
+
+.order{
+    width: 100%;
+    margin: 0 auto 20px;
+}
+
+.order>h4{
+    width: 980px;
+    margin: 0 auto 10px;
+    font-weight: bold;  
+}
+
+.bookings{
+    width: 980px;
+    margin: 0 auto;
+}
+
+.itinerary{
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.itinerary>img{
+    display: block;
+    width: 120px;
+    height: 75%;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.itinerary>.info{
+    position: relative;
+    width: 700px;
+    height: 90px;
+}
+
+.itinerary>.info>p{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.itinerary>.info>button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.info label{
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.booking-container{
+    display: flex;
+}
+.booking-container>div>div{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 5px;
+    margin-right: 40px;
+}
+
+.pay-info{
+    width: 980px;
+    margin: 0 auto;
+    display: flex;
+    height: 35px;
+    line-height: 35px;
+}
+
+.pay-info .total-price{
+    width: 120px;
+}
+
+.pay-info .refund{
+    height: 35px;
+    width: 50px;
+    padding: 5px;
+    border-radius: 5px;
+    background: #448899;
+    color: #ffffff;
+    margin: 0 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.pay-info .refund:disabled{
+    background: #aaaaaa;
+    cursor: auto;
+}
+
+.pay-info .notice{
+    color: #448899;
+}
+.pay-info .notice.disabled{
+    color: #aaaaaa;
+}
+
+
+@media (max-width:1200px){
+    main{
+        width: 100%;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width:980px){
+    .headline{
+        width: 100%;
+    }
+    .orders>h4{
+        width: 100%;
+    }
+    .order>h4{
+        width: 100%;
+        
+    }
+    .bookings{
+        width: 100%;
+    }
+}
+
+@media (max-width:700px){
+    .itinerary>img{
+        width: calc( 12% + 36px);
+    }
+    .itinerary>.info{
+        height: fit-content;
+    }
+    .booking-container{
+        flex-wrap: wrap;
+        height: fit-content;
+    }
+    .itinerary>.info>p{
+        margin-bottom: 5px;
+    }
+    .booking-container>div>div{
+        margin-bottom: 0;
+        width: auto;
+    }
+    .booking-container>div>div>span, .notice{
+        white-space: initial;
+    }
+    
+    .pay-info{
+        width: 100%;
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+}
+/* @media (max-width:400px){
+    .itinerary>img{
+        display: none;
+    }
+    button{
+        position: absolute;
+        right: 0;
+    }
+} */

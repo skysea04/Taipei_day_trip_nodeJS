@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('basic/head') %>
+    <link rel="stylesheet" href="/css/booking.css">
+    <link rel="stylesheet" href="/css/thankyou.css">
+    <title>感謝您的預定</title>
+</head>
+<body>
+    <%- include('basic/nav') %>
+    <main>
+        <h3 class="headline"></h3>
+        <p class="order-number"></p>
+        <div class="booking-container">
+           
+        </div>
+        <form class="order show">
+            <div class="seperator"></div>
+            <div class="info">
+                <h3>您的訂購資訊</h3>
+                <div>
+                    <label for="name">聯絡姓名：</label>
+                    <span class="name"></span>
+                </div>
+                <div>
+                    <label for="email">連絡信箱：</label>
+                    <span class="email"></span>
+                </div>
+                <div>
+                    <label for="phone">手機號碼：</label>
+                    <span class="phone"></span>
+                </div>
+                <div>
+                    <label for="price">總共費用：</label>
+                    <span class="price"></span>
+                </div>
+                <p>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫。</p>
+            </div>
+        </form>
+    </main>
+    <%- include('basic/footer') %>
+    <%- include('basic/js') %>
+    <script src="/js/thankyou.js"></script>
+</body>
+</html>
