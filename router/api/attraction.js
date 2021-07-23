@@ -41,7 +41,7 @@ attractionAPI.get('/attractions', async(req, res) => {
             message: '缺少景點頁數'
         })
     }catch{
-        return res.status(500).jsonp(errorData.serverErrorData)
+        return res.status(500).jsonp(errorData.serverError)
     }
     
 })
@@ -59,7 +59,7 @@ attractionAPI.get('/attraction/:id', async(req, res) => {
             })
         }
     }catch{
-        return res.status(500).jsonp(errorData.serverErrorData)
+        return res.status(500).jsonp(errorData.serverError)
     }
 })
 

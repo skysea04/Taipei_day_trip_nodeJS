@@ -13,9 +13,13 @@ const pool = mysql.createPool({
 const promisePool = pool.promise()
 
 const errorData = {
-    serverErrorData: {
+    serverError: {
         error: true,
         message: '伺服器內部錯誤'
+    },
+    noSign: {
+        error: true,
+        message: '未登入系統，操作失敗'
     }
 }
 

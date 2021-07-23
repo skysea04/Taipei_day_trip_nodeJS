@@ -25,7 +25,7 @@ userAPI.post('/user', async(req, res) =>{
             })
         }
     }catch{
-        return res.status(500).jsonp(errorData.serverErrorData)
+        return res.status(500).jsonp(errorData.serverError)
     }
 })
 
@@ -48,7 +48,7 @@ userAPI.patch('/user', async(req, res) => {
             })
         }  
     }catch{
-        return res.status(500).jsonp(errorData.serverErrorData)
+        return res.status(500).jsonp(errorData.serverError)
     }
 })
 
