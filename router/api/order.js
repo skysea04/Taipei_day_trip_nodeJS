@@ -62,76 +62,80 @@ orderAPI.get('/order', async(req, res) => {
 })
 
 orderAPI.get('/order/:orderNumber', async(req, res) => {
-    if(req.session.user){
-        const orderNum = req.params.orderNumber
-        const orderDate = orderNum.slice(0,8)
-        const userID = req.session.user.id
-        const [bookings] = await pool.query('SELECT booking.id, booking.attraction_id, booking.date, booking.time, booking.price, attraction.name, attraction.address, attraction.images\
-        FROM booking INNER JOIN attraction ON booking.attraction_id = attraction.id\
-        WHERE booking.order_number = ? AND booking.user_id = ?', [orderNum, userID])
-        if(bookings[0]){ //當有資料時才去串 TapPay要資料
-            const bookingLst = []
-            bookings.forEach(booking => {
-                const bookingData = {
-                    id: booking.id,
-                    attraction: {
-                        id: booking.attraction_id,
-                        name: booking.name,
-                        address: booking.address,
-                        image: booking.images[0]
-                    },
-                    date: moment(booking.date).format('YYYY-MM-DD'),
-                    time: booking.time
+    try{
+        if(req.session.user){
+            const orderNum = req.params.orderNumber
+            const orderDate = orderNum.slice(0,8)
+            const userID = req.session.user.id
+            const [bookings] = await pool.query('SELECT booking.id, booking.attraction_id, booking.date, booking.time, booking.price, attraction.name, attraction.address, attraction.images\
+            FROM booking INNER JOIN attraction ON booking.attraction_id = attraction.id\
+            WHERE booking.order_number = ? AND booking.user_id = ?', [orderNum, userID])
+            if(bookings[0]){ //當有資料時才去串 TapPay要資料
+                const bookingLst = []
+                bookings.forEach(booking => {
+                    const bookingData = {
+                        id: booking.id,
+                        attraction: {
+                            id: booking.attraction_id,
+                            name: booking.name,
+                            address: booking.address,
+                            image: booking.images[0]
+                        },
+                        date: moment(booking.date).format('YYYY-MM-DD'),
+                        time: booking.time
+                    }
+                    bookingLst.push(bookingData)
+                })
+                // TapPay串接
+                const recURL = 'https://sandbox.tappaysdk.com/tpc/transaction/query'
+                const recBody = {
+                    partner_key: partnerKey,
+                    filters: {
+                        time:{
+                          start_time: moment(orderDate, 'YYYYMMDD').valueOf(),
+                          end_time: moment(orderDate, 'YYYYMMDD').add(1, 'days').valueOf()
+                        },
+                        order_number: orderNum
+                    }
                 }
-                bookingLst.push(bookingData)
-            })
-            // TapPay串接
-            const recURL = 'https://sandbox.tappaysdk.com/tpc/transaction/query'
-            const recBody = {
-                partner_key: partnerKey,
-                filters: {
-                    time:{
-                      start_time: moment(orderDate, 'YYYYMMDD').valueOf(),
-                      end_time: moment(orderDate, 'YYYYMMDD').add(1, 'days').valueOf()
-                    },
-                    order_number: orderNum
+                const recHeaders = {
+                    'Content-type': 'application/json',
+                    'x-api-key': partnerKey
                 }
-            }
-            const recHeaders = {
-                'Content-type': 'application/json',
-                'x-api-key': partnerKey
-            }
-            const recRes = await axios.post(
-                recURL,
-                JSON.stringify(recBody),
-                {headers: recHeaders}
-            )
-            // 如果tappay回傳錯誤訊息，先回傳500資訊 
-            if(recRes.data.status !== 2 && recRes.data.status !== 0){
-                return res.status(500).jsonp(errorData.serverError)
-            }
-            const recData = recRes.data.trade_records[0]
-            // console.log(recData)
-            
-            return res.jsonp({
-                data: {
-                    number: orderNum,
-                    price: recData.amount,
-                    trip: bookingLst,
-                    contact: {
-                        name: recData.cardholder.name,
-                        email: recData.cardholder.email,
-                        phone: recData.cardholder.phone_number
-                    },
-                    status: 1
+                const recRes = await axios.post(
+                    recURL,
+                    JSON.stringify(recBody),
+                    {headers: recHeaders}
+                )
+                // 如果tappay回傳錯誤訊息，先回傳500資訊 
+                if(recRes.data.status !== 2 && recRes.data.status !== 0){
+                    return res.status(500).jsonp(errorData.serverError)
                 }
-            })
+                const recData = recRes.data.trade_records[0]
+                // console.log(recData)
+                
+                return res.jsonp({
+                    data: {
+                        number: orderNum,
+                        price: recData.amount,
+                        trip: bookingLst,
+                        contact: {
+                            name: recData.cardholder.name,
+                            email: recData.cardholder.email,
+                            phone: recData.cardholder.phone_number
+                        },
+                        status: 1
+                    }
+                })
+            }else{
+                return res.status(400).jsonp({data: null})
+            }
+    
         }else{
-            return res.status(400).jsonp({data: null})
+            return res.status(403).jsonp(errorData.noSign)
         }
-
-    }else{
-        return res.status(403).jsonp(errorData.noSign)
+    }catch{
+        return res.status(500).jsonp(errorData.serverError)
     }
 })
 
@@ -220,50 +224,54 @@ orderAPI.post('/order', async(req, res) => {
 })
 
 orderAPI.delete('/order', async(req, res) => {
-    if(req.session.user){
-        const userID = req.session.user.id
-        const orderNum = req.body.orderNumber
-        const threeDaysLater = moment().startOf('day').add(3, 'days')
-        let recTradeID = ''
-
-        const [bookings] = await pool.query('SELECT * FROM booking WHERE user_id = ? AND order_number = ? FOR UPDATE', [userID, orderNum])
-        bookings.forEach(booking => {
-            recTradeID = booking.rec_trade_id
-            if(booking.date < threeDaysLater){
+    try{
+        if(req.session.user){
+            const userID = req.session.user.id
+            const orderNum = req.body.orderNumber
+            const threeDaysLater = moment().startOf('day').add(3, 'days')
+            let recTradeID = ''
+    
+            const [bookings] = await pool.query('SELECT * FROM booking WHERE user_id = ? AND order_number = ? FOR UPDATE', [userID, orderNum])
+            bookings.forEach(booking => {
+                recTradeID = booking.rec_trade_id
+                if(booking.date < threeDaysLater){
+                    return res.status(400).jsonp({
+                        error: true,
+                        message: '有行程超過退款期限囉，無法進行退款'
+                    })
+                }
+            })
+    
+            const refundURL = 'https://sandbox.tappaysdk.com/tpc/transaction/refund'
+            const refundBody = {
+                partner_key: partnerKey,
+                rec_trade_id: recTradeID
+            }
+            const refundHeaders = {
+                'Content-type': 'application/json',
+                'x-api-key': partnerKey
+            }
+            const refundRes = await axios.post(refundURL, refundBody, {headers: refundHeaders})
+            const refundData = refundRes.data
+    
+            if(refundData.status === 0){
+                await pool.execute('UPDATE booking SET refund = ? WHERE user_id = ? AND order_number = ?', [true, userID, orderNum])
+                return res.jsonp({
+                    ok: true,
+                    message: '退款成功!'
+                })
+            }else{
                 return res.status(400).jsonp({
                     error: true,
-                    message: '有行程超過退款期限囉，無法進行退款'
+                    message: '退款失敗，請洽詢客服人員'
                 })
             }
-        })
-
-        const refundURL = 'https://sandbox.tappaysdk.com/tpc/transaction/refund'
-        const refundBody = {
-            partner_key: partnerKey,
-            rec_trade_id: recTradeID
-        }
-        const refundHeaders = {
-            'Content-type': 'application/json',
-            'x-api-key': partnerKey
-        }
-        const refundRes = await axios.post(refundURL, refundBody, {headers: refundHeaders})
-        const refundData = refundRes.data
-
-        if(refundData.status === 0){
-            await pool.execute('UPDATE booking SET refund = ? WHERE user_id = ? AND order_number = ?', [true, userID, orderNum])
-            return res.jsonp({
-                ok: true,
-                message: '退款成功!'
-            })
+            
         }else{
-            return res.status(400).jsonp({
-                error: true,
-                message: '退款失敗，請洽詢客服人員'
-            })
+            return res.status(403).jsonp(errorData.noSign)
         }
-        
-    }else{
-        return res.status(403).jsonp(errorData.noSign)
+    }catch{
+        res.status(500).jsonp(errorData.serverError)
     }
 })
 
