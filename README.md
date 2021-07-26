@@ -18,7 +18,7 @@ CVV : 123
 亦可在註冊欄位建立自己的帳號使用網站功能
 
 ## 使用技術
-* Framework : Node.js Express.js
+* Framework : Express.js
 * RESTful API架構實踐專案功能
 * 原生HTML+CSS完成RWD網頁
 * 使用index加速MySQL查詢效率
