@@ -64,6 +64,7 @@ orderAPI.get('/order', async(req, res) => {
 orderAPI.get('/order/:orderNumber', async(req, res) => {
     if(req.session.user){
         const orderNum = req.params.orderNumber
+        const orderDate = orderNum.slice(0,8)
         const userID = req.session.user.id
         const [bookings] = await pool.query('SELECT booking.id, booking.attraction_id, booking.date, booking.time, booking.price, attraction.name, attraction.address, attraction.images\
         FROM booking INNER JOIN attraction ON booking.attraction_id = attraction.id\
@@ -89,6 +90,10 @@ orderAPI.get('/order/:orderNumber', async(req, res) => {
             const recBody = {
                 partner_key: partnerKey,
                 filters: {
+                    time:{
+                      start_time: moment(orderDate, 'YYYYMMDD').valueOf(),
+                      end_time: moment(orderDate, 'YYYYMMDD').add(1, 'days').valueOf()
+                    },
                     order_number: orderNum
                 }
             }
@@ -101,6 +106,10 @@ orderAPI.get('/order/:orderNumber', async(req, res) => {
                 JSON.stringify(recBody),
                 {headers: recHeaders}
             )
+            // 如果tappay回傳錯誤訊息，先回傳500資訊 
+            if(recRes.data.status !== 2 && recRes.data.status !== 0){
+                return res.status(500).jsonp(errorData.serverError)
+            }
             const recData = recRes.data.trade_records[0]
             // console.log(recData)
             
