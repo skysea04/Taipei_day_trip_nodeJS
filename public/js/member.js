@@ -153,7 +153,7 @@ const fetchOrderAPI = async () => {
     
         async function refund(e){
             e.preventDefault()
-            const orderNumber = this.querySelector('h4 span').innerText
+            const orderNumber = this.querySelector('h4 a').innerText
             const body = {
                 orderNumber: orderNumber
             }

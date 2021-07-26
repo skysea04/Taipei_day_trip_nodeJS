@@ -67,6 +67,7 @@ bookingAPI.delete('/booking', async(req, res) => {
     try{
         if(req.session.user){
             const delID = req.body.id
+            const [[booking]] = await pool.query('SELECT * FROM booking WHERE id = ? FOR UPDATE', [delID])
             await pool.execute('DELETE FROM booking WHERE id = ?', [delID])
             return res.jsonp({ok: true})
         }else{
