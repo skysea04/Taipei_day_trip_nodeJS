@@ -1,5 +1,7 @@
 const express = require('express')
 const session = require('express-session')
+const helmet = require('helmet')
+
 const app = express()
 
 const sess = {
@@ -13,6 +15,7 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(sess))
+app.use(helmet())
 
 app.set('views', 'views')
 app.set('view engine', 'ejs')
