@@ -1,4 +1,4 @@
-# [台北一日遊](https://skyseatravel.site/) 旅遊店商專案
+# [台北一日遊](https://taipeitrip.online/) 旅遊店商專案
 
 本專案以台北資料大平台之台北景點作為資料根據，建置台北一日遊的導覽電商網站，內容包含：
 1. 首頁之景點瀏覽、搜尋。
@@ -6,7 +6,7 @@
 3. 與TapPay金流服務進行串接，可用測試信用卡進行付款與退款功能。
 
 ## Demo
-點擊該網址即可前往台北一日遊網站 : https://skyseatravel.site/
+點擊該網址即可前往台北一日遊網站 : https://taipeitrip.online/
 
 Test User : test1@test.com</br>
 Password : 123
