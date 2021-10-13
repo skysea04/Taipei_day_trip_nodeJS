@@ -13,4 +13,9 @@ userPage.get('/member', (req, res) => {
     return res.render('member')
 })
 
+userPage.get('/.well-known/pki-validation/:file', (req, res) => {
+    var file = req.params.file
+    res.sendFile(`/home/ubuntu/${file}`)
+})
+
 module.exports = userPage
